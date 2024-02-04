@@ -1,0 +1,117 @@
+version: "3.3"
+
+services:
+  yelb-ui:
+    image:  mreferre/yelb-ui:0.7 
+    port:
+      - 4000:80
+    networks:
+      - a
+
+  yelb-appserver:
+    image:  mreferre/yelb-appserver:0.5
+    networks:
+      - a
+
+  redis-server: 
+    image:  redis:4.0.2
+    volumes:
+      - db:/etc/redis/redis.conf
+    command:  redis-server /etc/redis/redis.conf
+    networks:
+      - a
+
+  odilia-redis01: 
+    image:  redis:4.0.2
+    volumes:
+      - db1:/etc/redis/redis.conf
+    command:  redis-server /etc/redis/redis.conf
+    networks:
+      - a
+
+  odilia-redis02: 
+    image: redis:4.0.2
+    volumes:
+      - db2:/etc/redis/redis.conf
+    command:  redis-server /etc/redis/redis.conf
+    networks:
+      - a
+
+  odilia-redis-sentinel1: 
+    image:  redis:4.0.2 
+    volumes:
+      - db3:/etc/redis/sentinel.conf
+    command:  redis-server", "/etc/redis/sentinel.conf
+    networks:
+      - a
+
+  odilia-redis-sentinel2:
+    image:  redis:4.0.2 
+    volumes:
+      - db4:/etc/redis/sentinel.conf
+    command:  redis-sentinel", "/etc/redis/sentinel.conf
+    networks:
+      - a
+
+  odilia-redis-sentinel3:
+    image:  redis:4.0.2
+    volumes:
+      - db5:/etc/redis/sentinel.conf 
+    command:  redis-sentinel", "/etc/redis/sentinel.conf
+    networks:
+      - a
+
+  yelb-db:
+    image:  mreferre/yelb-db:0.5
+    volumes:
+      - db6:/var/lib/postgresql/data
+    networks:
+      - a
+
+  odilia-db-replication01:
+    image:  mreferre/yelb-db:0.5
+    volumes:
+      - db7:/var/lib/postgresql/data
+    networks:
+      - a
+
+  odilia-db-replication02:
+    image:  mreferre/yelb-db:0.5 
+    volumes:
+      - db8:/var/lib/postgresql/data
+    networks:
+      - a
+
+  odilia-db-replication03:
+    image:  mreferre/yelb-db:0.5
+    volumes:
+      - db9:/var/lib/postgresql/data
+    networks:
+      - a 
+
+
+networks:
+  a:
+    driver: bridge
+
+volumes:
+  db:
+    driver: local
+  db1:
+    driver: local
+  db2:
+    driver: local
+  db3:
+    driver: local
+  db4:
+    driver: local
+  db5:
+    driver: local
+  db6:
+    driver: local
+  db7:
+    driver: local
+  db8:
+    driver: local
+  db9:
+    driver: local
