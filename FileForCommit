@@ -6,12 +6,13 @@ services:
     port:
       - 4000:80
     networks:
-      - a
+      - b
 
   yelb-appserver:
     image:  mreferre/yelb-appserver:0.5
     networks:
-      - a
+      -b
+
 
   redis-server: 
     image:  redis:4.0.2
@@ -19,7 +20,7 @@ services:
       - db:/etc/redis/redis.conf
     command:  redis-server /etc/redis/redis.conf
     networks:
-      - a
+      - b
 
   odilia-redis01: 
     image:  redis:4.0.2
@@ -27,7 +28,7 @@ services:
       - db1:/etc/redis/redis.conf
     command:  redis-server /etc/redis/redis.conf
     networks:
-      - a
+      - b
 
   odilia-redis02: 
     image: redis:4.0.2
@@ -35,7 +36,7 @@ services:
       - db2:/etc/redis/redis.conf
     command:  redis-server /etc/redis/redis.conf
     networks:
-      - a
+      - b
 
   odilia-redis-sentinel1: 
     image:  redis:4.0.2 
@@ -43,7 +44,7 @@ services:
       - db3:/etc/redis/sentinel.conf
     command:  redis-server", "/etc/redis/sentinel.conf
     networks:
-      - a
+      - b
 
   odilia-redis-sentinel2:
     image:  redis:4.0.2 
@@ -59,7 +60,7 @@ services:
       - db5:/etc/redis/sentinel.conf 
     command:  redis-sentinel", "/etc/redis/sentinel.conf
     networks:
-      - a
+      - b
 
   yelb-db:
     image:  mreferre/yelb-db:0.5
@@ -73,25 +74,25 @@ services:
     volumes:
       - db7:/var/lib/postgresql/data
     networks:
-      - a
+      - b
 
   odilia-db-replication02:
     image:  mreferre/yelb-db:0.5 
     volumes:
       - db8:/var/lib/postgresql/data
     networks:
-      - a
+      - b
 
   odilia-db-replication03:
     image:  mreferre/yelb-db:0.5
     volumes:
       - db9:/var/lib/postgresql/data
     networks:
-      - a 
+      - b 
 
 
 networks:
-  a:
+  b:
     driver: bridge
 
 volumes:
